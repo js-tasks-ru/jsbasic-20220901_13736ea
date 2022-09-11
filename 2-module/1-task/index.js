@@ -10,3 +10,5 @@ function sumSalary(salaries) {
   }
   return sum;
 }
+
+console.log('hello js');
