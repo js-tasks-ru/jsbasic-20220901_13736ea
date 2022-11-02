@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /**
  * Компонент, который реализует таблицу
  * с возможностью удаления строк
@@ -14,5 +15,50 @@
  */
 export default class UserTable {
   constructor(rows) {
+   this.elem = document.createElement('table');
+
+   this.elem.innerHTML = `
+      <thead>
+        <tr>
+          <td>Имя</td>
+          <td>Возраст</td>
+          <td>Зарплата</td>
+          <td>Город</td>
+          <td></td>
+        </tr>
+      </thead>
+   `;
+    
+    let tableInner = rows.map(row => {
+      let objVal = Object.values(row).map(value => `<td>${value}</td>`)
+      .join('');
+      return `
+      
+      <tr>
+      ${objVal}
+      <td><button>X</button></td>
+      </tr>
+      
+      `;
+    }).join('');
+
+    this.elem.innerHTML += `
+    
+    ${tableInner}
+    
+    `;
+
+    this.elem.addEventListener('click', (event) => this.onClick(event));
+
+
   }
+
+  onClick(event) {
+    if (event.target.tagName != 'BUTTON') {
+      return;
+    }
+    let tr = event.target.closest('tr');
+    tr.remove();
+  }
+
 }
